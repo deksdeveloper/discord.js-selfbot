@@ -71,6 +71,8 @@ ApplicationFlags.FLAGS = {
   APPLICATION_COMMAND_BADGE: 1 << 23,
   ACTIVE: 1 << 24,
   IFRAME_MODAL: 1 << 26,
+  SOCIAL_LAYER_INTEGRATION: 1 << 27, // Application has social layer integration features
+  PROMOTION_ELIGIBLE: 1 << 28, // Application is eligible for promotion
 };
 
 module.exports = ApplicationFlags;

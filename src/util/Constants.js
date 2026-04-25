@@ -9,7 +9,7 @@ const { Error, RangeError, TypeError } = require('../errors');
 exports.MaxBulkDeletableMessageAge = 1_209_600_000;
 
 exports.UserAgent =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.9210 Chrome/134.0.6998.205 Electron/35.3.0 Safari/537.36';
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.9246 Chrome/138.0.7204.81 Electron/36.4.0 Safari/537.36';
 
 /**
  * Chrome TLS ciphers
@@ -477,6 +477,10 @@ exports.Events = {
   MESSAGE_POLL_VOTE_ADD: 'messagePollVoteAdd',
   MESSAGE_POLL_VOTE_REMOVE: 'messagePollVoteRemove',
   VOICE_CHANNEL_EFFECT_SEND: 'voiceChannelEffectSend',
+  VOICE_CHANNEL_STATUS_UPDATE: 'voiceChannelStatusUpdate',
+  EMBEDDED_ACTIVITY_UPDATE: 'embeddedActivityUpdate',
+  GAME_RELATIONSHIP_ADD: 'gameRelationshipAdd',
+  GAME_RELATIONSHIP_REMOVE: 'gameRelationshipRemove',
   // Djs v12
   VOICE_BROADCAST_SUBSCRIBE: 'subscribe',
   VOICE_BROADCAST_UNSUBSCRIBE: 'unsubscribe',
@@ -616,9 +620,12 @@ exports.WSEvents = keyMirror([
   'MESSAGE_UPDATE',
   'MESSAGE_DELETE_BULK',
   'MESSAGE_REACTION_ADD',
+  'MESSAGE_REACTION_ADD_MANY',
   'MESSAGE_REACTION_REMOVE',
   'MESSAGE_REACTION_REMOVE_ALL',
   'MESSAGE_REACTION_REMOVE_EMOJI',
+  'MESSAGE_POLL_VOTE_ADD',
+  'MESSAGE_POLL_VOTE_REMOVE',
   'THREAD_CREATE',
   'THREAD_UPDATE',
   'THREAD_DELETE',
@@ -630,6 +637,8 @@ exports.WSEvents = keyMirror([
   'TYPING_START',
   'VOICE_STATE_UPDATE',
   'VOICE_SERVER_UPDATE',
+  'VOICE_CHANNEL_STATUS_UPDATE',
+  'VOICE_CHANNEL_EFFECT_SEND',
   'WEBHOOKS_UPDATE',
   'STAGE_INSTANCE_CREATE',
   'STAGE_INSTANCE_UPDATE',
@@ -641,6 +650,12 @@ exports.WSEvents = keyMirror([
   'GUILD_SCHEDULED_EVENT_USER_ADD',
   'GUILD_SCHEDULED_EVENT_USER_REMOVE',
   'GUILD_AUDIT_LOG_ENTRY_CREATE',
+  'EMBEDDED_ACTIVITY_UPDATE_V2',
+  'GAME_RELATIONSHIP_ADD',
+  'GAME_RELATIONSHIP_REMOVE',
+  'INTEGRATION_CREATE',
+  'INTEGRATION_UPDATE',
+  'INTEGRATION_DELETE',
 ]);
 
 /**

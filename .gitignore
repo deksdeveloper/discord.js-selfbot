@@ -83,3 +83,5 @@ data/
 update.mjs
 yarn.lock
 package-lock.json
+test.js
+.claude/settings.local.json

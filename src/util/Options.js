@@ -142,7 +142,7 @@ const Intents = require('./Intents');
 /**
  * HTTP options
  * @typedef {Object} HTTPOptions
- * @property {number} [version=9] API version to use
+ * @property {number} [version=10] API version to use
  * @property {ProxyAgentOptions} [agent={}] ProxyAgent options
  * @property {string} [api='https://discord.com/api'] Base URL of the API
  * @property {string} [cdn='https://cdn.discordapp.com'] Base URL of the CDN
@@ -191,23 +191,23 @@ class Options extends null {
       presence: { status: 'online', since: 0, activities: [], afk: true },
       sweepers: {},
       ws: {
-        capabilities: 0, // https://discord-userdoccers.vercel.app/topics/gateway#gateway-capabilities
+        capabilities: 30717, // https://discord-userdoccers.vercel.app/topics/gateway#gateway-capabilities
         properties: {
           os: 'Windows',
           browser: 'Discord Client',
           release_channel: 'stable',
-          client_version: '1.0.9210',
-          os_version: '10.0.19044',
+          client_version: '1.0.9246',
+          os_version: '10.0.22631',
           os_arch: 'x64',
           app_arch: 'x64',
           system_locale: 'en-US',
           has_client_mods: false,
           client_launch_id: randomUUID(),
           browser_user_agent: UserAgent,
-          browser_version: '35.3.0',
-          os_sdk_version: '19044',
-          client_build_number: 455964,
-          native_build_number: 69976,
+          browser_version: '36.4.0',
+          os_sdk_version: '22631',
+          client_build_number: 529845,
+          native_build_number: 72439,
           client_event_source: null,
           launch_signature: randomUUID(),
           client_heartbeat_session_id: randomUUID(),
@@ -217,7 +217,7 @@ class Options extends null {
         client_state: {
           guild_versions: {},
         },
-        version: 9,
+        version: 10,
         agent: {},
       },
       http: {
@@ -225,7 +225,7 @@ class Options extends null {
         headers: {
           'User-Agent': UserAgent,
         },
-        version: 9,
+        version: 10,
         api: 'https://discord.com/api',
         cdn: 'https://cdn.discordapp.com',
         invite: 'https://discord.gg',
