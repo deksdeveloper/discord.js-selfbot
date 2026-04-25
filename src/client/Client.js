@@ -5,7 +5,7 @@ const process = require('node:process');
 const { setInterval } = require('node:timers');
 const { setTimeout } = require('node:timers');
 const { Collection } = require('@discordjs/collection');
-const { authenticator } = require('otplib');
+const { TOTP } = require('otplib');
 const BaseClient = require('./BaseClient');
 const ActionsManager = require('./actions/ActionsManager');
 const ClientVoiceManager = require('./voice/ClientVoiceManager');
@@ -198,9 +198,9 @@ class Client extends BaseClient {
 
     /**
      * The authenticator used for TOTP
-     * @type {Object}
+     * @type {TOTP}
      */
-    this.authenticator = authenticator;
+    this.authenticator = new TOTP();
 
     this.authenticator.options = {
       step: 30,

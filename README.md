@@ -1,55 +1,43 @@
-> [!IMPORTANT]
-> ## Project Archival
-> 
-> **This project is no longer actively maintained and this repository has been archived.**
->
-> You can read the full announcement [here](https://github.com/aiko-chan-ai/discord.js-selfbot-v13/discussions/1743)
-
 <div align="center">
   <br />
   <p>
     <a href="https://discord.js.org"><img src="https://discord.js.org/static/logo.svg" width="546" alt="discord.js" /></a>
   </p>
-</div>
-
-> [!CAUTION]
-> **The use of this module under a different name on NPM (or another source besides this Github) is not associated with this library.**
-> **When using these libraries, you accept the risk of exposing your Discord Token.**
-
-## About
-
-<strong>Welcome to `discord.js-selfbot-v13@v3.7`, based on `discord.js@13.17` and backport `discord.js@14.21.0`</strong>
-
-- discord.js-selfbot-v13 is a [Node.js](https://nodejs.org) module that allows user accounts to interact with the Discord API v9.
-
-
-<div align="center">
+  <h1>Discord.js Selfbot v13 (Modernized)</h1>
   <p>
-    <a href="https://www.npmjs.com/package/discord.js-selfbot-v13"><img src="https://img.shields.io/npm/v/discord.js-selfbot-v13.svg" alt="npm version" /></a>
-    <a href="https://www.npmjs.com/package/discord.js-selfbot-v13"><img src="https://img.shields.io/npm/dt/discord.js-selfbot-v13.svg" alt="npm downloads" /></a>
-    <a href="https://github.com/aiko-chan-ai/discord.js-selfbot-v13/actions"><img src="https://github.com/aiko-chan-ai/discord.js-selfbot-v13/actions/workflows/lint.yml/badge.svg" alt="Tests status" /></a>
+    <a href="https://www.npmjs.com/package/discord.js-selfbot-v13"><img src="https://img.shields.io/npm/v/discord.js-selfbot-v13.svg?color=blue" alt="npm version" /></a>
+    <a href="https://www.npmjs.com/package/discord.js-selfbot-v13"><img src="https://img.shields.io/npm/dt/discord.js-selfbot-v13.svg?color=green" alt="npm downloads" /></a>
+    <img src="https://img.shields.io/badge/Discord%20API-v10-purple.svg" alt="Discord API v10" />
+    <img src="https://img.shields.io/badge/Built--in-Voice-orange.svg" alt="Built-in Voice" />
   </p>
 </div>
 
-> [!WARNING]
+> [!CAUTION]
+> **Using this on a user account is prohibited by the [Discord TOS](https://discord.com/terms) and can lead to an account block.**
+> **When using these libraries, you accept the risk of exposing your Discord Token.**
 > **I don't take any responsibility for blocked Discord accounts that used this module.**
 
-> [!CAUTION]
-> **Using this on a user account is prohibited by the [Discord TOS](https://discord.com/terms) and can lead to the account block.**
+## About
 
-### <strong>[Document Website](https://discordjs-self-v13.netlify.app/)</strong>
+<strong>Welcome to `discord.js-selfbot-v13`, fully modernized for Discord API v10.</strong>
 
-### <strong>[Example Code](https://github.com/aiko-chan-ai/discord.js-selfbot-v13/tree/main/examples)</strong>
+`discord.js-selfbot-v13` is a [Node.js](https://nodejs.org) module that allows user accounts to interact with the Discord API. This updated repository is completely modernized to support **Discord API v10**, Gateway v10, and built-in Voice integration natively.
 
-## Features (User)
-- [x] Message
-- [x] ClientUser: Status, Activity, RemoteAuth, etc.
-- [X] Guild: Fetch Members, Join / Leave, Top emojis, etc.
-- [X] Interactions: Slash Commands, Buttons, Menu, Modal.
-- [X] Captcha & TOTP Handler
-- [X] Documentation
-- [x] Voice & Video
-- [ ] Everything
+### What's New in this Modernized Version?
+- **Discord API v10 & Gateway v10 Support:** Fully upgraded WebSocket configuration and intents parsing.
+- **Anti-Detection & Spoofing:** Hardcoded to mimic the latest Discord Desktop Client (Windows 11, Chrome 138, Electron 36) to avoid Cloudflare/API blocks.
+- **Built-in Voice Support:** `@discordjs/voice` and `libsodium-wrappers` are now natively bundled into the core package. No external installations required!
+- **Clean & Warning-Free:** All deprecated sub-dependencies and linting warnings have been removed for a flawless installation experience.
+
+---
+
+## Features
+
+- [x] **Core:** Messages, Guilds, Channels, Roles, and Interactions (Slash Commands, Buttons, Menus, Modals).
+- [x] **Account Features:** RemoteAuth, Relationships (Friends), User Settings, Notes, and Billing.
+- [x] **Voice & Audio:** Built-in `@discordjs/voice` integration. Join channels, play audio, and record directly out of the box.
+- [x] **Advanced Events:** Full support for modern Gateway events (e.g., Polls, Voice Channel Effects, Auto-Moderation).
+- [x] **Captcha & TOTP Handler:** Fully integrated MFA support utilizing the latest `otplib` v13.
 
 ## Installation
 
@@ -60,24 +48,60 @@
 npm install discord.js-selfbot-v13@latest
 ```
 
-## Example
+## Example Usage
+
+Here is a quick example showcasing the basic connection and the natively integrated Voice connection features:
 
 ```js
-const { Client } = require('discord.js-selfbot-v13');
-const client = new Client();
+const { Client, joinVoiceChannel } = require('discord.js-selfbot-v13');
+
+const client = new Client({
+  checkUpdate: false, // Disables console update warnings
+});
 
 client.on('ready', async () => {
-  console.log(`${client.user.username} is ready!`);
-})
+  console.log(`✅ Logged in as ${client.user.tag}!`);
+  
+  // Set custom rich presence
+  client.user.setPresence({
+    activities: [{ name: 'Listening to Music', type: 'LISTENING' }],
+    status: 'dnd',
+  });
+});
 
-client.login('token');
+client.on('messageCreate', async (message) => {
+  if (message.author.id !== client.user.id) return; // Only process your own messages
+
+  if (message.content === '!join') {
+    // Easily join a voice channel using the built-in integration
+    const channel = message.member.voice.channel;
+    
+    if (channel) {
+      joinVoiceChannel({
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: channel.guild.voiceAdapterCreator,
+        group: client.user.id,
+        selfDeaf: false,
+        selfMute: false
+      });
+      await message.reply(`✅ Joined ${channel.name}!`);
+    } else {
+      await message.reply('You need to be in a voice channel first!');
+    }
+  }
+});
+
+// Login with your user token
+client.login('YOUR_USER_TOKEN');
 ```
 
-## Get Token ?
+## How to Get Your Token
 
-- Based: [findByProps](https://discord.com/channels/603970300668805120/1085682686607249478/1085682686607249478)
+> [!WARNING]  
+> Never share your token with anyone!
 
-<strong>Run code (Discord Console - [Ctrl + Shift + I])</strong>
+Run the following code in the **Discord Console (Ctrl + Shift + I -> Console)** to copy your token to the clipboard:
 
 ```js
 window.webpackChunkdiscord_app.push([
@@ -98,27 +122,13 @@ window.webpackChunkdiscord_app.push([
 ]);
 
 window.webpackChunkdiscord_app.pop();
-console.log('%cWorked!', 'font-size: 50px');
-console.log(`%cYou now have your token in the clipboard!`, 'font-size: 16px');
+console.log('%cWorked!', 'font-size: 50px; color: green;');
+console.log(`%cYou now have your token in the clipboard!`, 'font-size: 16px;');
 ```
 
-## Contributing
-
-- Before creating an issue, please ensure that it hasn't already been reported/suggested, and double-check the
-[documentation](https://discordjs-self-v13.netlify.app/).  
-- See [the contribution guide](https://github.com/discordjs/discord.js/blob/main/.github/CONTRIBUTING.md) if you'd like to submit a PR.
-
 ## Need help?
-Github Discussion: [Here](https://github.com/aiko-chan-ai/discord.js-selfbot-v13/discussions)
+Feel free to open an Issue or start a Github Discussion if you have questions about the new API v10 adaptations or voice integrations.
 
 ## Credits
-- [Discord.js](https://github.com/discordjs/discord.js)
-
-## <strong>Other project(s)
-
-- 📘 [***aiko-chan-ai/DiscordBotClient***](https://github.com/aiko-chan-ai/DiscordBotClient) <br/>
-  A patched version of discord, with bot login support
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=aiko-chan-ai/discord.js-selfbot-v13&type=Date)](https://star-history.com/#aiko-chan-ai/discord.js-selfbot-v13&Date)
+- Based on the original [discord.js-selfbot-v13](https://github.com/aiko-chan-ai/discord.js-selfbot-v13) fork.
+- Powered by the incredible core of [Discord.js](https://github.com/discordjs/discord.js).

@@ -41,7 +41,7 @@ await channel.sendSlash('450323683840491530', 'animal chat', 'bye')
 ### Code test
 
 ```js
-const { MessageAttachment } = require('discord.js-selfbot-v13')
+const { MessageAttachment } = require('discord.js-self-bot')
 const fs = require('fs')
 const a = new MessageAttachment(fs.readFileSync('./wallpaper.jpg') , 'test.jpg') 
 await message.channel.sendSlash('718642000898818048', 'sauce', a)
