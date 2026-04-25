@@ -19,14 +19,13 @@
 
 ## About
 
-<strong>Welcome to `discord.js-selfbot-v13`, fully modernized for Discord API v10.</strong>
+<strong>Welcome to `discord.js-self-bot`, fully modernized for Discord API v10.</strong>
 
-`discord.js-selfbot-v13` is a [Node.js](https://nodejs.org) module that allows user accounts to interact with the Discord API. This updated repository is completely modernized to support **Discord API v10**, Gateway v10, and built-in Voice integration natively.
+`discord.js-self-bot` is a [Node.js](https://nodejs.org) module that allows user accounts to interact with the Discord API. This updated repository is completely modernized to support **Discord API v10**, Gateway v10, and built-in Voice integration natively.
 
 ### What's New in this Modernized Version?
 - **Discord API v10 & Gateway v10 Support:** Fully upgraded WebSocket configuration and intents parsing.
 - **Anti-Detection & Spoofing:** Hardcoded to mimic the latest Discord Desktop Client (Windows 11, Chrome 138, Electron 36) to avoid Cloudflare/API blocks.
-- **Built-in Voice Support:** `@discordjs/voice` and `libsodium-wrappers` are now natively bundled into the core package. No external installations required!
 - **Clean & Warning-Free:** All deprecated sub-dependencies and linting warnings have been removed for a flawless installation experience.
 
 ---
@@ -45,55 +44,7 @@
 > **Node.js 20.18.0 or newer is required**
 
 ```sh-session
-npm install discord.js-selfbot-v13@latest
-```
-
-## Example Usage
-
-Here is a quick example showcasing the basic connection and the natively integrated Voice connection features:
-
-```js
-const { Client, joinVoiceChannel } = require('discord.js-selfbot-v13');
-
-const client = new Client({
-  checkUpdate: false, // Disables console update warnings
-});
-
-client.on('ready', async () => {
-  console.log(`✅ Logged in as ${client.user.tag}!`);
-  
-  // Set custom rich presence
-  client.user.setPresence({
-    activities: [{ name: 'Listening to Music', type: 'LISTENING' }],
-    status: 'dnd',
-  });
-});
-
-client.on('messageCreate', async (message) => {
-  if (message.author.id !== client.user.id) return; // Only process your own messages
-
-  if (message.content === '!join') {
-    // Easily join a voice channel using the built-in integration
-    const channel = message.member.voice.channel;
-    
-    if (channel) {
-      joinVoiceChannel({
-        channelId: channel.id,
-        guildId: channel.guild.id,
-        adapterCreator: channel.guild.voiceAdapterCreator,
-        group: client.user.id,
-        selfDeaf: false,
-        selfMute: false
-      });
-      await message.reply(`✅ Joined ${channel.name}!`);
-    } else {
-      await message.reply('You need to be in a voice channel first!');
-    }
-  }
-});
-
-// Login with your user token
-client.login('YOUR_USER_TOKEN');
+npm install @deksdeveloper/discord.js-self-bot
 ```
 
 ## How to Get Your Token
